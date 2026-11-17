@@ -1,8 +1,14 @@
-# IELTS Visual Vocabulary Trainer – Online Images
+# IELTS Visual Vocabulary Trainer — Google Images edition
 
-Deploy all files to the root of a GitHub Pages repository (Settings → Pages → Deploy from branch → main / root). On iPhone open the GitHub Pages URL in Safari and choose Share → Add to Home Screen.
+Upload all files in this folder to the root of your GitHub Pages repository. The vocabulary, quiz, speaking practice and progress screens remain.
 
-## Online pictures
-The Learn Vocabulary screen searches Wikimedia Commons for images associated with the English word, using the public Wikimedia API without an API key. Images require internet and may be approximate, irrelevant, or unavailable. A local emoji is displayed as a fallback. Tap **Tìm ảnh khác** to repeat the search. The image source links to the Wikimedia Commons file page where licensing and attribution can be checked. Reuse of images outside the app must comply with the respective file license.
+## Google Images integration
+The vocabulary screen now offers **Xem ảnh Google**, which opens a Google Images search for the current word and topic. Wikimedia Commons is fully removed.
 
-Vocabulary, quiz, reading, color-coded speech transcription comparison, and progress features remain. Speech recognition is not a phoneme-level AI pronunciation assessment. GitHub Pages is a static host.
+**Important limitation:** Google Images search results cannot legally/reliably be scraped and hotlinked directly from a static GitHub Pages app. Without a backend, the app displays its local illustrative emoji and a link to the live Google Images results. This is intentional, not an image-loading bug.
+
+To display Google-sourced images automatically inside the app, create a backend proxy using Google's supported Programmable Search JSON API (image search), with your API key and search engine configuration stored **server-side**. Configure `GOOGLE_IMAGE_PROXY` near the top of `app.js` with an HTTPS endpoint that accepts `?q=...` and responds with `{ "items": [{ "imageUrl": "https://...", "sourceUrl": "https://...", "title": "..." }] }`. Your backend must allow CORS for your GitHub Pages origin and should enforce rate limits and safe-search. Review Google's current API availability, quotas, and terms. Source sites own the image rights.
+
+Do not commit API keys to GitHub.
+
+Speech scores remain text-transcription similarity, not clinical/phoneme-level pronunciation accuracy.
